@@ -16,6 +16,7 @@
 #     path('<int:question_id>/vote/', views.vote, name='vote'),
 # ]
 
+# urls.py dispatch the matched URLto correct view:
 
 from django.conf.urls import url
 from django.contrib import admin
