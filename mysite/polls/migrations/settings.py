@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from sqlite3 import connect
+from unittest import TestCase
+
+from setuptools.command.install import install
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -123,3 +128,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+class BaseSettings( TestCase ):
+    @classmethod
+    def setUpClass(cls):
+        install( level='DEBUG' )
+        host = 'localhost'
+    # here you can edit your base url
+        cls.ApiUrl = "http://localhost:8000/"
+    # here you can edit your database connection credentials
+        cls.db = connect( host=host,
+                      user='Yang',
+                      password='yangyang',
+                      database='url' )
+    @classmethod
+    def tearDownClass(cls):
+        cls.db.close( )
+        print("------test is over------")
